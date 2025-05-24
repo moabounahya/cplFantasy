@@ -1,10 +1,15 @@
+import { icons } from '@/constants/icons';
+import { images } from '@/constants/images';
 import { Tabs } from 'expo-router'
-import { Text, View } from "react-native";
+import { ScrollView, Text, View, Image } from "react-native";
 
 export default function Index() {
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text className="text-5xl text-secondary font-bold">Welcome To The CPL Fantasy League</Text>
+    <View className="flex-1 bg-primary">
+      <Image source={images.bg} className="absolute w-full z-0" />
+      <ScrollView className="flex-1 px-5">
+        <Image source={icons.logo} className="w-40 h-40 mt-20 mb-5 mx-auto" />
+      </ScrollView>
     </View>
   );
 }
