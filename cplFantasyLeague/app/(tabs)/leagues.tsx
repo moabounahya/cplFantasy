@@ -1,12 +1,16 @@
+import { icons } from '@/constants/icons';
+import { images } from '@/constants/images';
 import { Tabs } from 'expo-router'
-import React from 'react'
-import { View, Text } from 'react-native'
+import { ScrollView, Text, View, Image } from "react-native";
 
 const leagues = () => {
     return (
-        <View>
-            <Text></Text>
-        </View>
+        <View className="flex-1 bg-primary">
+        <Image source={images.bg} className="absolute w-full z-0" />
+        <ScrollView className="flex-1 px-5">
+         
+        </ScrollView>
+      </View>
     )
 }
 
