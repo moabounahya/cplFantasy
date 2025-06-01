@@ -97,8 +97,6 @@ export const fetchPlayersByPosition = async (position: string, limit = 10): Prom
     }
 
     const json = await response.json();
-
-    // Filter players by position from their first statistics record
     const players: Player[] = json.response
       .filter(
         (playerObj: any) =>
@@ -116,6 +114,44 @@ export const fetchPlayersByPosition = async (position: string, limit = 10): Prom
     throw new Error(error.message || 'Unknown error occurred.');
   }
 };
+
+export const fetchPackPlayers = async (position: string, limit = 6): Promise<Player[]> => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/players?league=479&season=2023`,
+      {
+        method: 'GET',
+        //@ts-ignore
+        headers: {
+          'x-apisports-key': process.env.EXPO_PUBLIC_API_KEY,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status}`);
+    }
+
+    const json = await response.json();
+    const players: Player[] = json.response
+      .filter(
+        (playerObj: any) =>
+          playerObj.statistics.length > 0 &&
+          playerObj.statistics[0].games.position === position
+      )
+      .slice(0, limit)
+      .map((playerObj: any) => ({
+        name: playerObj.player.name,
+        photo: playerObj.player.photo,
+      }));
+
+    return players;
+  } catch (error: any) {
+    throw new Error(error.message || 'Unknown error occurred.');
+  }
+};
+
+
 
 
 

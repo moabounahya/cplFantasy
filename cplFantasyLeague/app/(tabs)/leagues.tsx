@@ -4,18 +4,18 @@ import { images } from "@/constants/images";
 import { ScrollView, Text, View, Image, TextInput, TouchableOpacity, Modal } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-// Dummy league data
+
 const LEAGUES = [
-  { id: 1, name: "Premier League" },
-  { id: 2, name: "La Liga" },
-  { id: 3, name: "Bundesliga" },
+  { id: 1, name: "John & Friends Fantasy League" },
+  { id: 2, name: "Winners Only FL" },
+  { id: 3, name: "Only Atlantic Canadian Players League" },
 ];
 
-// Dummy players by league
 const PLAYERS_BY_LEAGUE: Record<number, { username: string; score: number }[]> = {
   1: [
     { username: "MoSalah11", score: 22 },
     { username: "Haaland9", score: 19 },
+    { username: "Saka7", score: 19 },
   ],
   2: [
     { username: "Lewy9", score: 18 },
@@ -56,10 +56,8 @@ export default function Leagues() {
       <Image source={images.bg} className="absolute w-full z-0" />
 
       <ScrollView className="flex-1 px-5 pt-12" keyboardShouldPersistTaps="handled">
-        {/* Logo */}
         <Image source={icons.logo} className="w-40 h-40 mx-auto mb-6" resizeMode="contain" />
 
-        {/* Join League */}
         {!selectedLeague && (
           <View className="mb-5">
             <Text className="text-white text-lg mb-3 text-center font-semibold">Join a League</Text>
@@ -79,7 +77,6 @@ export default function Leagues() {
           </View>
         )}
 
-        {/* League List */}
         {!selectedLeague ? (
           <>
             <Text className="text-white text-3xl font-bold mb-6 text-center">Leagues</Text>

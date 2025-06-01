@@ -52,14 +52,25 @@ const Squad = () => {
 
   const renderPlayerList = (players: Player[], positionPrefix: string, limit: number) => (
     <View className="mb-6">
-      <Text className="text-white text-xl font-bold mb-2">{positionPrefix === "GK" ? "Goalkeepers" : positionPrefix === "DEF" ? "Defenders" : positionPrefix === "MID" ? "Midfielders" : "Attackers"}</Text>
+      <Text className="text-white text-xl font-bold mt-8 mb-2">
+        {positionPrefix === "GK"
+          ? "Goalkeepers"
+          : positionPrefix === "DEF"
+          ? "Defenders"
+          : positionPrefix === "MID"
+          ? "Midfielders"
+          : "Attackers"}
+      </Text>
+
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {players.map((player, index) => {
           const isSelected = selectedPlayers.some(p => p.name === `${positionPrefix} ${player.name}`);
           return (
             <TouchableOpacity
               key={index}
-              className={`items-center mr-4 p-2 rounded-lg ${isSelected ? 'bg-green-500' : 'bg-white/10'}`}
+              className={`items-center mr-4 p-2 rounded-lg ${
+                isSelected ? 'bg-green-500' : 'bg-white/10'
+              }`}
               onPress={() => togglePlayer(player, positionPrefix, limit)}
             >
               <Image source={{ uri: player.photo }} className="w-16 h-16 rounded-full mb-2" />
@@ -72,16 +83,22 @@ const Squad = () => {
   );
 
   return (
-    <View className="flex-1 bg-[#05b9ed]">
-      <Image source={images.bg} className="absolute w-full z-0" />
-      <ScrollView className="flex-1 px-5 pt-10">
+    <View className="flex-1 bg-primary">
+      <Image source={images.bg} className="absolute w-full h-full z-0" />
+      <ScrollView className="flex-1 px-5 pt-10" contentContainerStyle={{ paddingBottom: 100 }}>
+
         <Image source={icons.logo} className="w-32 h-32 mb-5 mx-auto" />
         <SearchBar />
+
+        <Text className="text-white text-lg font-bold text-center mt-4 mb-2">
+          Selected Players: {selectedPlayers.length}/11
+        </Text>
 
         {renderPlayerList(goalkeepers, "GK", positionLimits.GK)}
         {renderPlayerList(defenders, "DEF", positionLimits.DEF)}
         {renderPlayerList(midfielders, "MID", positionLimits.MID)}
         {renderPlayerList(attackers, "ATT", positionLimits.ATT)}
+
       </ScrollView>
     </View>
   );
